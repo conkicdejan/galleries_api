@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateGalleryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class GalleryController extends Controller
 {
@@ -49,9 +50,7 @@ class GalleryController extends Controller
 
     public function update(StoreGalleryRequest $request, Gallery $gallery)
     {
-        if ($gallery->user->id != Auth::id()) {
-            return response()->json(['errors' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
-        }
+        Gate::authorize('update', $gallery);
 
         $validated = $request->validated();
 
@@ -69,10 +68,7 @@ class GalleryController extends Controller
 
     public function destroy(Gallery $gallery)
     {
-
-        if ($gallery->user->id != Auth::id()) {
-            return response()->json(['errors' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
-        }
+        Gate::authorize('delete', $gallery);
 
         $gallery->delete();
         return response($gallery);
