@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GalleryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(GalleryController::class)->group(function () {
+    Route::get('galleries', 'index');
+    Route::post('galleries', 'store')->middleware('auth');
+    Route::get('galleries/{gallery}', 'show');
+    Route::put('galleries/{gallery}', 'update')->middleware('auth');
+    Route::delete('galleries/{gallery}', 'destroy')->middleware('auth');
+});
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
