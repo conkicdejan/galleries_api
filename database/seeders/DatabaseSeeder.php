@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             GallerySeeder::class,
+            CommentSeeder::class,
         ]);
 
         // \App\Models\User::factory()->create([

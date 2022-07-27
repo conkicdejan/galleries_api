@@ -43,7 +43,7 @@ class GalleryController extends Controller
 
     public function show(Gallery $gallery)
     {
-        $gallery->load(['images', 'user'])->get();
+        $gallery->load(['images', 'user', 'comments.user'])->get();
 
         return response()->json($gallery);
     }
