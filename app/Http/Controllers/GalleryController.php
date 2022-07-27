@@ -22,6 +22,15 @@ class GalleryController extends Controller
             $galleries->whereUserId($author);
         };
 
+        $filter = $request->input('filter');
+
+        $galleries->where(function ($query) use ($filter) {
+            return $query
+                ->orWhereName($filter)
+                ->orWhereDescription($filter)
+                ->orWhereUserName($filter);
+        });
+
         return response()->json($galleries->paginate(10));
     }
 
