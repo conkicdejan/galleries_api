@@ -31,7 +31,7 @@ class GalleryController extends Controller
                 ->orWhereUserName($filter);
         });
 
-        return response()->json($galleries->paginate(10));
+        return response()->json($galleries->latest()->paginate(10));
     }
 
     public function store(StoreGalleryRequest $request)
